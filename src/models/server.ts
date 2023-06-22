@@ -1,5 +1,4 @@
 import { createServer, Server as HttpServer } from 'http'
-import path from 'path'
 import express, { Application } from 'express'
 import { Server as WebSocketServer } from 'socket.io'
 import { SocketServerInterface } from '../interfaces/socket'
@@ -22,7 +21,6 @@ class Server {
   private middleware() {
     this.app.use(cors())
     this.app.use(express.json())
-    this.app.use(express.static(path.join(__dirname, '../../public')))
   }
 
   private apiRest() {

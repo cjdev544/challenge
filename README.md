@@ -10,7 +10,8 @@
 ```
 1. For Docker, execute (Requires Docker to be installed)
 ```
-  docker compose up .
+  docker compose up -d redis
+  docker compose up -d app
 ```
 
 ## The  config.json  file is responsible for modifying the coordinates, the number of rooms, and the number of coins per room that will be generated.

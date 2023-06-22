@@ -2,8 +2,11 @@ import { createClient } from 'redis'
 import { CoinsRoom, Data } from '../interfaces/socket'
 import { generateRoomsAndCoins } from '../helpers/functions'
 
+const client = createClient({
+  url: 'redis://redis',
+})
+
 export const saveDataToRedis = async (data: CoinsRoom[]) => {
-  const client = createClient()
   await client.connect()
   try {
     const formatData: Data = { data }
@@ -17,7 +20,6 @@ export const saveDataToRedis = async (data: CoinsRoom[]) => {
 
 export const getRooms = async (): Promise<CoinsRoom[] | null> => {
   try {
-    const client = createClient()
     await client.connect()
 
     const value = await client.get('dataRooms')
