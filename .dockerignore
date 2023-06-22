@@ -1,0 +1,7 @@
+node_modules/
+Dockerfile
+.git
+.gitignore
+.dockerignore
+.eslintrc.json
+package-lock.json
