@@ -2,9 +2,15 @@ import { createClient } from 'redis'
 import { CoinsRoom, Data } from '../interfaces/socket'
 import { generateRoomsAndCoins } from '../helpers/functions'
 
-const client = createClient({
-  url: 'redis://redis',
-})
+let client: any
+
+if (process.env.TS_NODE_DEV) {
+  client = createClient()
+} else {
+  client = createClient({
+    url: 'redis://redis',
+  })
+}
 
 export const saveDataToRedis = async (data: CoinsRoom[]) => {
   await client.connect()

@@ -1,48 +1,26 @@
-import * as fs from 'fs'
-import path from 'path'
 import Coin from './coin'
-
-type Config = {
-  roomsNumber: number
-  coinsForRoom: number
-  roomArea: {
-    xMin: number
-    xMax: number
-    yMin: number
-    yMax: number
-    zMin: number
-    zMax: number
-  }
-}
+import { Config } from '../interfaces/config'
 
 class Room {
-  private config: Config
   roomNumber: number
   coins: Coin[] = []
 
-  constructor(roomNumber: number) {
+  constructor(roomNumber: number, config: Config) {
     this.roomNumber = roomNumber
 
-    this.config = JSON.parse(
-      fs.readFileSync(path.join(__dirname, '../../config.json'), 'utf-8')
-    )
-
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < config.coinsForRoom; i++) {
       const coin = new Coin(
         Math.floor(
-          Math.random() *
-            (this.config.roomArea.xMax - this.config.roomArea.xMin + 1) +
-            this.config.roomArea.xMin
+          Math.random() * (config.roomArea.xMax - config.roomArea.xMin + 1) +
+            config.roomArea.xMin
         ),
         Math.floor(
-          Math.random() *
-            (this.config.roomArea.yMax - this.config.roomArea.yMin + 1) +
-            this.config.roomArea.yMin
+          Math.random() * (config.roomArea.yMax - config.roomArea.yMin + 1) +
+            config.roomArea.yMin
         ),
         Math.floor(
-          Math.random() *
-            (this.config.roomArea.zMax - this.config.roomArea.zMin + 1) +
-            this.config.roomArea.zMin
+          Math.random() * (config.roomArea.zMax - config.roomArea.zMin + 1) +
+            config.roomArea.zMin
         )
       )
       this.coins.push(coin)
