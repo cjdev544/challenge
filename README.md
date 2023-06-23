@@ -2,13 +2,7 @@
  
 1. Clone the repository 
 2. Open a terminal in the project folder directory 
- 
-3. For development, install the dependencies (Requires Redis to be installed)
-```
-  npm install
-  npm run dev
-```
-1. For Docker, execute (Requires Docker to be installed)
+3. For Docker, execute (Requires Docker to be installed)
 ```
   docker compose up -d redis
   docker compose up -d app
