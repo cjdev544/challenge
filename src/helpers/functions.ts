@@ -17,6 +17,6 @@ export const generateRoomsAndCoins = () => {
     coins: room.coins,
     room: room.roomNumber,
   }))
-  // await saveDataToRedis(dataRooms)
+
   return dataRooms
 }

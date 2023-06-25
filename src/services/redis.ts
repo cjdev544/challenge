@@ -14,7 +14,7 @@ export const saveDataToRedis = async (data: CoinsRoom[]) => {
     const formatData: Data = { data }
     await client.set('dataRooms', JSON.stringify(formatData))
 
-    client.disconnect()
+    await client.quit()
   } catch (error) {
     console.log(error)
   }
@@ -27,10 +27,11 @@ export const getRooms = async (): Promise<CoinsRoom[] | null> => {
     const value = await client.get('dataRooms')
     if (value) {
       const res: Data = JSON.parse(value)
+      await client.quit()
       return res.data
     }
 
-    client.disconnect()
+    await client.quit()
     return null
   } catch (error) {
     console.log(error)
@@ -41,9 +42,15 @@ export const getRooms = async (): Promise<CoinsRoom[] | null> => {
 export const getRoom = async (
   roomNumber: number
 ): Promise<CoinsRoom | null> => {
-  const data = await getRooms()
-  if (!data) return null
-  return data[roomNumber - 1]
+  try {
+    const data = await getRooms()
+    if (!data) return null
+
+    return data[roomNumber - 1]
+  } catch (error) {
+    console.log(error)
+    return null
+  }
 }
 
 export const deleteCoinInRoom = async (
@@ -65,8 +72,10 @@ export const deleteCoinInRoom = async (
   })
   if (availableCoins) {
     saveDataToRedis(availableCoins)
+
     return availableCoins
   }
+
   return null
 }
 
