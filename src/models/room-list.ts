@@ -9,7 +9,15 @@ import {
 
 class RoomList {
   constructor() {
-    this.saveDataRooms()
+    this.checkDataRooms()
+  }
+
+  private async checkDataRooms() {
+    const data = await getRooms()
+
+    if (!data) {
+      this.saveDataRooms()
+    }
   }
 
   private async saveDataRooms() {
